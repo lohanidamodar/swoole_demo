@@ -26,27 +26,28 @@ $server->on('workerStart',function($server, $workerId){
     Console::info("Worker " . ++$workerId . ' started');
 });
 
-$user = '';
+$user = [];
 
-$server->on('request', function(Request $request, Response $response) use ($user) {
-    Coroutine::create(function() use ($request, $response, $user){
-        $uri = $request->server['request_uri'] ?? '';
+$server->on('request', function(Request $request, Response $response) use (&$user) {
+    $uri = $request->server['request_uri'] ?? '';
 
-        if($uri == '/sleep') {
-            $user = 'user1';
-            sleep(15);
-            $response->end($user);
-            return;
-        }
-    
-        if($uri == '/nosleep') {
-            $user = 'user2';
-            $response->end($user);
-            return;
-        }
-        $response->header('content-type', 'text/plain');
-        $response->end('Hello world\n');
-    });
+    var_dump(Coroutine::getCid());
+
+    if($uri == '/sleep') {
+        $user[Coroutine::getCid()] = 'user1';
+        //sleep(15);
+        Coroutine::sleep(15);
+        $response->end(time().'|'.$user[Coroutine::getCid()]);
+        return;
+    }
+
+    if($uri == '/nosleep') {
+        $user[Coroutine::getCid()] = 'user2';
+        $response->end(time().'|'.$user[Coroutine::getCid()]);
+        return;
+    }
+    $response->header('content-type', 'text/plain');
+    $response->end('Hello world\n');
 });
 
 $server->start();
