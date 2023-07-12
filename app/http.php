@@ -32,14 +32,14 @@ $server->on('request', function(Request $request, Response $response) use ($user
     Coroutine::create(function() use ($request, $response, $user){
         $uri = $request->server['request_uri'] ?? '';
 
-        if($uri == '/hello') {
+        if($uri == '/sleep') {
             $user = 'user1';
             sleep(15);
             $response->end($user);
             return;
         }
     
-        if($uri == '/hello/world') {
+        if($uri == '/nosleep') {
             $user = 'user2';
             $response->end($user);
             return;
