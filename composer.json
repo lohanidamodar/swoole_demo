@@ -1,0 +1,16 @@
+{
+    "name": "gitpod/swoole_demo",
+    "description": "Demo swoole project",
+    "type": "project",
+    "require": {
+        "ext-swoole": "*",
+        "swoole/ide-helper": "^5.0",
+        "utopia-php/cli": "^0.15.0"
+    },
+    "authors": [
+        {
+            "name": "Damodar Lohani",
+            "email": "dlohani48@gmail.com"
+        }
+    ]
+}

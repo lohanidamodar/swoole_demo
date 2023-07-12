@@ -1,0 +1,12 @@
+version: '3'
+
+services:
+  demo-app:
+    container_name: demo-app
+    image: demo-app
+    build:
+      context: .
+    ports: 
+      - 9501:80
+    volumes:
+      - ./app:/usr/src/code/app
